@@ -158,7 +158,7 @@ class VAR(nn.Module):
         f_hat = sos.new_zeros(B, self.Cvae, self.patch_nums[-1], self.patch_nums[-1])
         f_hats = []
         for b in self.blocks: b.attn.kv_caching(True)
-        for si, pn in enumerate([1]):   # si: i-th segment
+        for si, pn in enumerate(self.patch_nums):   # si: i-th segment
             print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!: ", si, pn) # [i, pn]
             ratio = si / self.num_stages_minus_1
             # last_L = cur_L
@@ -195,7 +195,7 @@ class VAR(nn.Module):
                 next_token_map = self.word_embed(next_token_map) + lvl_pos[:, cur_L:cur_L + self.patch_nums[si+1] ** 2]
                 next_token_map = next_token_map.repeat(2, 1, 1)   # double the batch sizes due to CFG
             print("next_token_map: ", next_token_map.shape) # [B, next_pn**2, hidden_dim]
-            f_hats.append(f_hat)
+            f_hats.append(f_hat.clone().detach())
         for b in self.blocks: b.attn.kv_caching(False)
         outs = []
         for f_hat in f_hats:
