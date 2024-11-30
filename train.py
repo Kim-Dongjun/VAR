@@ -329,6 +329,7 @@ class NullDDP(torch.nn.Module):
 
 
 if __name__ == '__main__':
+    print("start!")
     try: main_training()
     finally:
         dist.finalize()
