@@ -276,6 +276,7 @@ def train_one_ep(ep: int, is_first_ep: bool, start_it: int, args: arg_util.Args,
         
         inp = inp.to(args.device, non_blocking=True)
         label = label.to(args.device, non_blocking=True)
+        print("inp, label: ", inp.shape, label.shape)
         
         args.cur_it = f'{it+1}/{iters_train}'
         

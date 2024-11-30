@@ -198,7 +198,7 @@ class VAR(nn.Module):
         for b in self.blocks: b.attn.kv_caching(False)
         out = self.vae_proxy[0].fhat_to_img(f_hat).add_(1).mul_(0.5)
         print("out: ", out.shape) # [B, 3, H, W]
-        print("out range: ", out.min().item(), out.max().item())
+        print("out range: ", out.min().item(), out.max().item()) # [0,1]
         return self.vae_proxy[0].fhat_to_img(f_hat).add_(1).mul_(0.5)   # de-normalize, from [-1, 1] to [0, 1]
     
     def forward(self, label_B: torch.LongTensor, x_BLCv_wo_first_l: torch.Tensor) -> torch.Tensor:  # returns logits_BLV
