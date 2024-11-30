@@ -80,6 +80,6 @@ for cfg in cfgs:
         chw = torchvision.utils.make_grid(out, nrow=8, padding=0, pad_value=1.0)
         chw = chw.permute(1, 2, 0).mul_(255).cpu().numpy()
         chw = PImage.fromarray(chw.astype(np.uint8))
-        chw.save(f"samples/samples_{cfg}/sample_{var.patch_nums[i]}.png")
+        chw.save(f"samples/samples_{cfg}_constant/sample_{var.patch_nums[i]}.png")
 
     # chw.show()
