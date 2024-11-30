@@ -75,7 +75,7 @@ for cfg in cfgs:
     chw.save("sample.png")
 
     os.makedirs('samples', exist_ok=True)
-    os.makedirs(f'samples/samples_{cfg}', exist_ok=True)
+    os.makedirs(f'samples/samples_{cfg}_constant', exist_ok=True)
     for i, out in enumerate(outs):
         chw = torchvision.utils.make_grid(out, nrow=8, padding=0, pad_value=1.0)
         chw = chw.permute(1, 2, 0).mul_(255).cpu().numpy()
