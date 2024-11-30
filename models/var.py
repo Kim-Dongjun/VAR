@@ -198,6 +198,8 @@ class VAR(nn.Module):
                 next_token_map = next_token_map.repeat(2, 1, 1)   # double the batch sizes due to CFG
             print("next_token_map: ", next_token_map.shape) # [B, next_pn**2, hidden_dim]
             f_hats.append(f_hat.clone().detach())
+        import sys
+        sys.exit()
         for b in self.blocks: b.attn.kv_caching(False)
         outs = []
         for f_hat in f_hats:
