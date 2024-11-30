@@ -222,6 +222,7 @@ class VAR(nn.Module):
             
             if self.prog_si == 0: x_BLC = sos
             else: x_BLC = torch.cat((sos, self.word_embed(x_BLCv_wo_first_l.float())), dim=1)
+            print("self.word_embed(x_BLCv_wo_first_l.float()): ", self.word_embed(x_BLCv_wo_first_l.float()).shape, x_BLC.shape, self.lvl_embed(self.lvl_1L[:, :ed].expand(B, -1)).shape)
             x_BLC += self.lvl_embed(self.lvl_1L[:, :ed].expand(B, -1)) + self.pos_1LC[:, :ed] # lvl: BLC;  pos: 1LC
         
         attn_bias = self.attn_bias_for_masking[:, :, :ed, :ed]
@@ -234,7 +235,7 @@ class VAR(nn.Module):
         x_BLC = x_BLC.to(dtype=main_type)
         cond_BD_or_gss = cond_BD_or_gss.to(dtype=main_type)
         attn_bias = attn_bias.to(dtype=main_type)
-        
+        print("forward x_BLC: ", x_BLC.shape, cond_BD_or_gss.shape, attn_bias.shape)
         AdaLNSelfAttn.forward
         for i, b in enumerate(self.blocks):
             x_BLC = b(x=x_BLC, cond_BD=cond_BD_or_gss, attn_bias=attn_bias)
