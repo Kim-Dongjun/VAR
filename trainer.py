@@ -101,9 +101,13 @@ class VARTrainer(object):
         # forward
         B, V = label_B.shape[0], self.vae_local.vocab_size
         self.var.require_backward_grad_sync = stepping
-        
+
+        print("inp_B3HW: ", inp_B3HW.shape)
         gt_idx_Bl: List[ITen] = self.vae_local.img_to_idxBl(inp_B3HW)
+        for i, gt in enumerate(gt_idx_Bl):
+            print("gt: ", i, gt.shape)
         gt_BL = torch.cat(gt_idx_Bl, dim=1)
+        print("gt_BL: ", gt_BL.shape)
         x_BLCv_wo_first_l: Ten = self.quantize_local.idxBl_to_var_input(gt_idx_Bl)
         
         with self.var_opt.amp_ctx:
