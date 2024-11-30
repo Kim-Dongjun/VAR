@@ -181,6 +181,9 @@ class VectorQuantizer2(nn.Module):
             f_hat.add_(self.quant_resi[si/(SN-1)](h_BChw))
             pn_next = self.v_patch_nums[si+1]
             next_scales.append(F.interpolate(f_hat, size=(pn_next, pn_next), mode='area').view(B, C, -1).transpose(1, 2))
+            print("f_hat: ", si, f_hat.shape, h_BChw.shape, pn_next, H, W)
+        for next_scale in next_scales:
+            print("next_scale: ", next_scale.shape)
         return torch.cat(next_scales, dim=1) if len(next_scales) else None    # cat BlCs to BLC, this should be float32
     
     # ===================== get_next_autoregressive_input: only used in VAR inference, for getting next step's input =====================

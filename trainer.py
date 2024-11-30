@@ -126,7 +126,8 @@ class VARTrainer(object):
                 lw = self.loss_weight
             print("lw: ", lw.shape)
             loss = loss.mul(lw).sum(dim=-1).mean()
-        
+        import sys
+        sys.exit()
         # backward
         grad_norm, scale_log2 = self.var_opt.backward_clip_step(loss=loss, stepping=stepping)
         
