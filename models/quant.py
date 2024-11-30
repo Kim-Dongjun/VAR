@@ -181,6 +181,7 @@ class VectorQuantizer2(nn.Module):
             f_hat.add_(self.quant_resi[si/(SN-1)](h_BChw))
             pn_next = self.v_patch_nums[si+1]
             next_scales.append(F.interpolate(f_hat, size=(pn_next, pn_next), mode='area').view(B, C, -1).transpose(1, 2))
+            print("gt_ms_idx_Bl: ", gt_ms_idx_Bl[si].shape, self.embedding(gt_ms_idx_Bl[si]).shape, h_BChw.shape)
             print("f_hat: ", si, f_hat.shape, h_BChw.shape, pn_next, H, W)
         for next_scale in next_scales:
             print("next_scale: ", next_scale.shape)
