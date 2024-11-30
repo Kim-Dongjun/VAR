@@ -174,6 +174,7 @@ class VAR(nn.Module):
             print("logits_BlV: ", logits_BlV.shape) # [2B, pn**2, num_tokens]
             
             t = cfg * ratio
+            print("t: ", t)
             logits_BlV = (1+t) * logits_BlV[:B] - t * logits_BlV[B:]
             print("logits_BlV: ", logits_BlV.shape) # [B, pn**2, num_tokens]
 
