@@ -236,6 +236,7 @@ class VAR(nn.Module):
         cond_BD_or_gss = cond_BD_or_gss.to(dtype=main_type)
         attn_bias = attn_bias.to(dtype=main_type)
         print("forward x_BLC: ", x_BLC.shape, cond_BD_or_gss.shape, attn_bias.shape)
+        print("attn_bias: ", attn_bias[:,:,:14,:14])
         AdaLNSelfAttn.forward
         for i, b in enumerate(self.blocks):
             x_BLC = b(x=x_BLC, cond_BD=cond_BD_or_gss, attn_bias=attn_bias)
